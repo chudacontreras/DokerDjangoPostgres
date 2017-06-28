@@ -2,14 +2,19 @@ bd:
   image: postgres
 rabbit:
   image: rabbitmq
+  ports:
+   - "15672:15672"
+   - "4369:4369"
+   - "5671:5671"
+   - "5672:5672"
+   - "25672:25672"
 web:
   build: .
   command: python manage.py runserver 0.0.0.0:8000
   volumes:
-    - .:/codigo
+    - .:/app
   ports:
     - "8000:8000"
-    - "9091:15672"
   links:
     - bd
     - rabbit
