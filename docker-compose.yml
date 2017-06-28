@@ -1,0 +1,15 @@
+bd:
+  image: postgres
+rabbit:
+  image: rabbitmq
+web:
+  build: .
+  command: python manage.py runserver 0.0.0.0:8000
+  volumes:
+    - .:/codigo
+  ports:
+    - "8000:8000"
+    - "9091:15672"
+  links:
+    - bd
+    - rabbit
